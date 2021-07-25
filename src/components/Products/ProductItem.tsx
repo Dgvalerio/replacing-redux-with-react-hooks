@@ -1,7 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
-import { toggleFav } from '../../store/actions/products';
 import { IProduct } from '../../types/interfaces';
 import Card from '../UI/Card';
 import './ProductItem.css';
@@ -12,9 +10,9 @@ const ProductItem = ({
   description,
   title,
 }: IProduct): JSX.Element => {
-  const dispatch = useDispatch();
-
-  const toggleFavHandler = () => dispatch(toggleFav(id));
+  const toggleFavHandler = () => {
+    //
+  };
 
   return (
     <Card style={{ marginBottom: '1rem' }}>
