@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { ProductsContext } from '../../context/products-context';
 import { IProduct } from '../../types/interfaces';
 import Card from '../UI/Card';
 import './ProductItem.css';
@@ -10,9 +11,9 @@ const ProductItem = ({
   description,
   title,
 }: IProduct): JSX.Element => {
-  const toggleFavHandler = () => {
-    //
-  };
+  const { toggleFav } = useContext(ProductsContext);
+
+  const toggleFavHandler = () => toggleFav(id);
 
   return (
     <Card style={{ marginBottom: '1rem' }}>

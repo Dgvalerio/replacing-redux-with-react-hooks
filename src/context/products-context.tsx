@@ -2,8 +2,12 @@ import React, { createContext, ReactNode, useState } from 'react';
 
 import { IProduct } from '../types/interfaces';
 
-export const ProductsContext = createContext<{ products: IProduct[] }>({
+export const ProductsContext = createContext<{
+  products: IProduct[];
+  toggleFav: (productId: string) => void;
+}>({
   products: [],
+  toggleFav: () => null,
 });
 
 const ProductsProvider = ({
@@ -38,8 +42,25 @@ const ProductsProvider = ({
     },
   ]);
 
+  const toggleFavorite = (productId: string) =>
+    setProductsList((currentProdList) => {
+      const prodIndex = currentProdList.findIndex((p) => p.id === productId);
+
+      const newFavStatus = !currentProdList[prodIndex].isFavorite;
+      const updatedProducts = [...currentProdList];
+
+      updatedProducts[prodIndex] = {
+        ...currentProdList[prodIndex],
+        isFavorite: newFavStatus,
+      };
+
+      return updatedProducts;
+    });
+
   return (
-    <ProductsContext.Provider value={{ products: productsList }}>
+    <ProductsContext.Provider
+      value={{ products: productsList, toggleFav: toggleFavorite }}
+    >
       {children}
     </ProductsContext.Provider>
   );
