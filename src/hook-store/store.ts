@@ -6,12 +6,12 @@ let actions: any = {};
 
 export const useStore = (): [
   typeof globalState,
-  (actionIdentifier: string) => void
+  (actionIdentifier: string, payload: any) => void
 ] => {
   const setState = useState(globalState)[1];
 
-  const dispatch = (actionIdentifier: string) => {
-    const newState = actions[actionIdentifier](globalState);
+  const dispatch = (actionIdentifier: string, payload: any) => {
+    const newState = actions[actionIdentifier](globalState, payload);
     globalState = { ...globalState, ...newState };
 
     for (const listener of listeners) {
