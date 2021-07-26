@@ -6,10 +6,9 @@ let globalState: IProductsState | any = {};
 let listeners: React.Dispatch<React.SetStateAction<typeof globalState>>[] = [];
 let actions: any = {};
 
-export const useStore = (): [
-  typeof globalState,
-  (actionIdentifier: string, payload: any) => void
-] => {
+export const useStore = (
+  shouldListen = true
+): [typeof globalState, (actionIdentifier: string, payload: any) => void] => {
   const setState = useState(globalState)[1];
 
   const dispatch = (actionIdentifier: string, payload: any) => {
@@ -22,12 +21,16 @@ export const useStore = (): [
   };
 
   useEffect(() => {
-    listeners.push(setState);
+    if (shouldListen) {
+      listeners.push(setState);
+    }
 
     return () => {
-      listeners = listeners.filter((li) => li !== setState);
+      if (shouldListen) {
+        listeners = listeners.filter((li) => li !== setState);
+      }
     };
-  }, [setState]);
+  }, [setState, shouldListen]);
 
   return [globalState, dispatch];
 };
