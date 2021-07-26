@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-let globalState = {};
+import { IProductsState } from '../types/interfaces';
+
+let globalState: IProductsState | any = {};
 let listeners: React.Dispatch<React.SetStateAction<typeof globalState>>[] = [];
 let actions: any = {};
 

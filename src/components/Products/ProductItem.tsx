@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { ProductsContext } from '../../context/products-context';
+import { useStore } from '../../hook-store/store';
 import { IProduct } from '../../types/interfaces';
 import Card from '../UI/Card';
 import './ProductItem.css';
@@ -11,9 +11,9 @@ const ProductItem = ({
   description,
   title,
 }: IProduct): JSX.Element => {
-  const { toggleFav } = useContext(ProductsContext);
+  const dispatch = useStore()[1];
 
-  const toggleFavHandler = () => toggleFav(id);
+  const toggleFavHandler = () => dispatch('toggleFav', id);
 
   return (
     <Card style={{ marginBottom: '1rem' }}>

@@ -1,12 +1,12 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 
 import ProductItem from '../components/Products/ProductItem';
-import { ProductsContext } from '../context/products-context';
-import { IProduct } from '../types/interfaces';
+import { useStore } from '../hook-store/store';
+import { IProduct, IProductsState } from '../types/interfaces';
 import './Products.css';
 
 const Products: FC = () => {
-  const { products: productList } = useContext(ProductsContext);
+  const { products: productList }: IProductsState = useStore()[0];
 
   return (
     <ul className="products-list">

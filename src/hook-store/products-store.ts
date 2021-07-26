@@ -1,9 +1,16 @@
 import { IProduct } from '../types/interfaces';
 import { initStore } from './store';
 
+export interface IActions {
+  toggleFav: (
+    currentState: { products: IProduct[] },
+    productId: string
+  ) => void;
+}
+
 const configureStore = (): void => {
   const actions = {
-    toggle_fav: (currentState: { products: IProduct[] }, productId: string) => {
+    toggleFav: (currentState: { products: IProduct[] }, productId: string) => {
       const prodIndex = currentState.products.findIndex(
         (p) => p.id === productId
       );
@@ -14,9 +21,7 @@ const configureStore = (): void => {
         isFavorite: newFavStatus,
       };
 
-      return {
-        products: currentState.products,
-      };
+      return { products: updatedProducts };
     },
   };
 
